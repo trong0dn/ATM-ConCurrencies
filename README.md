@@ -1,5 +1,4 @@
 # ATM ConCurrencies
-***
 <br/> [Version 2.0] 
 <br/> Date: April 27, 2021
 
@@ -34,13 +33,13 @@ services.
 - The application is supported by three libraries that provide an ease-of-use
 interface for IPCs:
 <pre>
-	- message_queue.c		(Implement functions in message_queue.h)
+	- message_queue.c	(Implement functions in message_queue.h)
 	- message_queue.h		
-	- semaphore.c			(Implement functions in semaphore.h)
+	- semaphore.c		(Implement functions in semaphore.h)
 	- semaphore.h
-	- shared_memory.c		(Implement functions in shared_memory.h)
+	- shared_memory.c	(Implement functions in shared_memory.h)
 	- shared_memory.h
-	- semun.h			(Used in semaphore operations/initializing)
+	- semun.h		(Used in semaphore operations/initializing)
 </pre>
 - The application has an additional header file that stores constants and 
 structs that are used in multiple programs:
