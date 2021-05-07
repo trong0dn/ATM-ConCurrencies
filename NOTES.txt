@@ -1,0 +1,60 @@
+COMPILING
+
+   For compilation we provided a shell script ('compile.sh') that you can run and it will
+   compile everything. This way you don't need to give each executable permission to be 
+   run, although you will need to give 'compile.sh' permission to run.
+
+
+EXECUTING
+
+   For running the program just run the DB_editor executable in a terminal. In an effort
+   to make our program easy to use, our DB_server, interest and write_state processes
+   are all child processes of the DB_editor so you don't need to worry about them. After
+   this you can run as many ATM's as you want in separate terminals.
+
+
+EXAMPLE COMPILING AND EXECUTING COMMANDS
+	
+In one terminal:
+	$ chmod +x compile.sh
+	$ ./compile.sh
+	$ ./DB_editor
+
+Then one terminal for each ATM:
+	$ ./ATM
+
+
+EXITING
+   
+   For exiting the program the simplest way is to just type 'X' when prompted to choose an
+   operation in the DB_editor. This will delete all IPCs and exit all processes including the
+   ATMs. We did it this way to make it easy to use and because we considered the DB_editor to
+   be sort of like an administrator user, while the ATMs are just regular users. Each ATM can 
+   be exited individually by typing 'X' when asked for an account number and then closing the 
+   terminal window.
+
+   If you accidentally exit the DB_editor by closing the terminal window, the ATM's will not 
+   be terminated and you will not delete the IPCs properly. To fix this, you can just run the
+   DB_editor again and type 'X' to exit right away. The IPCs will be properly deleted.
+
+
+OTHER IMPORTANT NOTES
+
+   There is an interesting side effect that happens occasionally that when DB_server checks 
+   all other user input, the DB_editor may cause a segmentation fault if you input an invalid 
+   value when first prompted to choose an operation. If you do this occurs, you will need to 
+   do ps aux and kill the child processes of the DB_editor manually to terminate the program.
+
+   The way we protected accounts was using an array of binary semaphores. In order to
+   do this we need to be able to set the array to a fixed length. We thought it was
+   outside of the scope of the project to use a linked list for this because it would
+   be much more complicated. With the array implementation there is a limit to the number
+   of accounts that can exist at one time. Currently, the max number of accounts is 10, 
+   but this can be changed by changing the 'NUM_LOCKS' constant in 'structs.h'.
+
+   If you close an ATM manually you will get a sem_acquire failed message because of the
+   way we made it so that the DB_editor can close the ATM. This is done by having each ATM
+   fork itself to have a parent process that waits for the DB_editor to tell it to close,
+   and a child process that does all of the ATM work. This way, when the ATM tells the
+   parent to close, the actual ATM will be also forced to close. The sem_acquire failure
+   message is not a problem at all.
