@@ -7,8 +7,8 @@
 ***
 
 <pre>
-Contact Name:		Trong Nguyen, 100848232
-			Evan Smedley, 100148695
+Contact Name:		Trong Nguyen
+			Evan Smedley
 Affiliation: 		Carleton University - Systems and Computer Engineering
 			SYSC 4001 Operating Systems
 </pre>
